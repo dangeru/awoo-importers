@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 import json, urllib.request, pymysql, sys, traceback, html, re
-global_op_id = -100
 con = pymysql.connect("localhost", "awoo", "awoo", "awoo")
 boards = ["a", 
 		#"lain", 
@@ -8,23 +7,22 @@ boards = ["a",
 out = open("output.sql", "w")
 ua = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36"
 out.write("USE awoo;\n")
-out.write("DELETE FROM posts;\n")
-global_op_id = -100
+out.write("CREATE TABLE x (id INTEGER)\n")
 def escape(x): return con.escape_string(x)
 def insert_op(title, comment, board):
-	global global_op_id
 	comment = escape(html.unescape(comment))
 	title = escape(html.unescape(title))
-	global_op_id -= 1
-	return "INSERT INTO posts (post_id, board, title, content) VALUES ("+str(global_op_id)+", '"+board+"', '"+title+"', '"+comment+"');\n"
+	res = "DELETE FROM x;\n"
+	res += "INSERT INTO posts (board, title, content) VALUES ('"+board+"', '"+title+"', '"+comment+"');\n"
+	res += "INSERT INTO x (id) VALUES (LAST_INSERT_ID());\n"
+	return res;
 def insert_reply(op, comment, board):
-	global global_op_id
 	#comment = html.unescape(re.sub("\\&([0-9]{3});", "\\&#\\1;", comment))
 	#comment = escape(html.unescape(comment))
-	comment = escape(html.unescape(comment).replace("&039;", "'"))
-	#print(comment)
+	#comment = escape(html.unescape(comment).replace("&039;", "'"))
+	comment = escape(html.unescape(comment.replace("&", "&#")));
 	op = escape(html.unescape(op))
-	return "INSERT INTO posts (board, content, parent) VALUES ('"+board+"', '"+comment+"', "+str(global_op_id)+");\n"
+	return "INSERT INTO posts (board, content, parent) VALUES ('"+board+"', '"+comment+"', (SELECT id FROM x));\n"
 def request(url):
 	r = urllib.request.Request(url, data = None, headers = {"User-Agent": ua})
 	return urllib.request.urlopen(r).read().decode("utf-8").replace("\n", "\\n").replace("\r", "\\r")
@@ -45,4 +43,5 @@ for board in boards:
 		except:
 			print(traceback.format_exc())
 			print("Error on thread " + board + "/" + str(post["id"]) + " - " + post["title"] + " - skipping")
+out.write("DROP TABLE x;\n")
 out.close()

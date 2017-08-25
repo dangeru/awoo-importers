@@ -33,4 +33,5 @@ for f in glob.glob("threads/*.txt"):
 	out.write(insert_op(title, replies[0], "tech"))
 	for reply in replies[1:]:
 		out.write(insert_reply(reply, "tech"))
-out.write("DROP TABLE x\n")
+out.write("DROP TABLE x;\n")
+out.close();
