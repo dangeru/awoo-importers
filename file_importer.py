@@ -3,9 +3,9 @@ def escape(x): return con.escape_string(x)
 def insert_op(title, comment, board):
 	comment = escape(html.unescape(comment))
 	title = escape(html.unescape(title))
-	res = "DROP TABLE x;\n"
+	res = "DELETE FROM x;\n"
 	res += "INSERT INTO posts (board, title, content) VALUES ('"+board+"', '"+title+"', '"+comment+"');\n"
-	res += "CREATE TEMPORARY TABLE x AS SELECT LAST_INSERT_ID() AS id;\n"
+	res += "INSERT INTO x (id) VALUES (LAST_INSERT_ID());\n"
 	return res
 def insert_reply(comment, board):
 	comment = escape(html.unescape(comment))
@@ -14,7 +14,7 @@ con = pymysql.connect("localhost", "awoo", "awoo", "awoo")
 out = open("output.sql", "w")
 out.write("USE awoo;\n")
 out.write("DELETE FROM posts;\n")
-out.write("CREATE TEMPORARY TABLE x AS SELECT NULL;\n")
+out.write("CREATE TEMPORARY TABLE x (id INTEGER);\n")
 for f in glob.glob("threads/*.txt"):
 	f = open(f, "r").read().split("\n")
 	title = f[0][3:]
@@ -33,3 +33,4 @@ for f in glob.glob("threads/*.txt"):
 	out.write(insert_op(title, replies[0], "tech"))
 	for reply in replies[1:]:
 		out.write(insert_reply(reply, "tech"))
+out.write("DROP TABLE x\n")
