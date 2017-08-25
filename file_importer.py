@@ -28,7 +28,7 @@ for f in glob.glob("threads/*.txt"):
 			replies.append(reply)
 			reply = line[1:]
 		else:
-			reply += line
+			reply += "\n" + line
 	replies.append(reply)
 	out.write(insert_op(title, replies[0], "tech"))
 	for reply in replies[1:]:
