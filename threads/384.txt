@@ -1,0 +1,10 @@
+|||Magisk or SuperSU?
+||I was using SuperSu for as long as i can remember but a few minutes ago i stumbled upon on an analogue of it, and wonder what is a difference between them? What is pros and cons of Magisk and should i try it?
+(device: Samsung Galaxy Note 4 - Exynos version
+custom ROM: Nemesis 3.7
+custom kernel and Xposed installed)
+#Despacito
+#Magisk is systemless so that means it doesnt modify any system files so you can still use Over The Air update. SuperSU generally has better support and more native support but its hard to apply any OTAs while still keeping SuperSU or having the OTA blocked.
+#TL;DR since you are using a custom rom, safe route is Magisk, reccomended route is SuperSU.
+#U N R O O T E D
+#Got it, thank you all -OP

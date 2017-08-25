@@ -1,0 +1,12 @@
+|||why uTorrent is good
+||i just realized that it has auto bandwidth adjusment. for example, my internet speed is ~600KB/s. when I open a 720p yt video, the download speed drops to 300KB/s to compensate. with qbittorrent (for example), the video would just buffer forever until you pause the torrent. just FYI
+#Unless you have a super old router, pretty much allo of them have quality of service features that prioritize voice and video traffic. 
+#uTorrent sucks ass
+#uTorrent was okay around version 2, then it turned to shit. Give Deluge a try
+
+#I got interested in Deluge because it&#039;s extensible but I can&#039;t find a way to bring back the ads so I stopped using it.
+#Joking aside, for a lightweight app it uses more memory and around 3% CPU without doing anything. Plus I hate webUI so sorry about that.
+#um forgot the webUI thing I have no idea what I&#039;m talking about
+#utorrent is fucking cancer to uninstall.
+#You can always install any old uTorrent version anywhere, I&#039;m currently using the 2.2.1 version, pretty good if you ask me
+#BitTorrent is better

@@ -1,0 +1,5 @@
+|||Installing i3 WM
+||What am I in for?
+#If you don&#039;t get your head around the keyboard shortcuts, a nightmare. Otherwise, a way of switching windows quickly without having to move your hand to the mouse.
+
+Why i3 though? Why not like xfce or something?

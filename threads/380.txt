@@ -1,0 +1,7 @@
+|||Android Apps
+||Discuss about some shit that aren&#039;t games, for vidya go to /v/
+#Anyone has a good app to load yt vids in a floating window ?
+#I tried Viral Lite, but I&#039;m not convinced
+-the anon from just above
+#Try newpipe
+#If you can root, I&#039;m pretty sure there&#039;s an Xposed module for that
