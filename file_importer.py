@@ -18,7 +18,7 @@ out.write("CREATE TEMPORARY TABLE x (id INTEGER);\n")
 for f in glob.glob("threads/*.txt"):
 	f = open(f, "r").read().split("\n")
 	title = f[0][3:]
-	f[1] = "#" + f[1][3:]
+	f[1] = "#" + f[1][2:]
 	i = 1
 	replies = []
 	reply = ""
