@@ -1,4 +1,4 @@
-import glob, subprocess, pymysql, html
+import glob, subprocess, pymysql, html, os
 def escape(x): return con.escape_string(x)
 def insert_op(title, comment, board):
 	comment = escape(html.unescape(comment))
@@ -15,23 +15,25 @@ out = open("output.sql", "w")
 out.write("USE awoo;\n")
 out.write("DELETE FROM posts;\n")
 out.write("CREATE TEMPORARY TABLE x (id INTEGER);\n")
-for f in glob.glob("threads/*.txt"):
-	f = open(f, "r").read().split("\n")
-	title = f[0][3:]
-	f[1] = "#" + f[1][2:]
-	i = 1
-	replies = []
-	reply = ""
-	for line in f[1:]:
-		if len(line) == 0: continue
-		if line[0] == "#":
-			replies.append(reply)
-			reply = line[1:]
-		else:
-			reply += "\n" + line
-	replies.append(reply)
-	out.write(insert_op(title, replies[1], "tech"))
-	for reply in replies[2:]:
-		out.write(insert_reply(reply, "tech"))
+for board in glob.glob("*"):
+	if not os.path.isdir(board): continue
+	for f in glob.glob(board + "/thread/*.txt"):
+		f = open(f, "r").read().split("\n")
+		title = f[0][3:]
+		f[1] = "#" + f[1][2:]
+		i = 1
+		replies = []
+		reply = ""
+		for line in f[1:]:
+			if len(line) == 0: continue
+			if line[0] == "#":
+				replies.append(reply)
+				reply = line[1:]
+			else:
+				reply += "\n" + line
+		replies.append(reply)
+		out.write(insert_op(title, replies[1], board))
+		for reply in replies[2:]:
+			out.write(insert_reply(reply, board))
 out.write("DROP TABLE x;\n")
 out.close();
